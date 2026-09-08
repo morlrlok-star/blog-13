@@ -725,37 +725,37 @@ header {
   100% { transform: scale(1.4); opacity: 1; }
 }
 
-/* Единый переливающийся заголовок */
-.hero-title-text {
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 800;
-  font-size: 3.2rem;
-  line-height: 1.1;
-  text-transform: uppercase;
-  letter-spacing: -0.02em;
-  position: relative;
-  display: inline-block;
-  padding: 10px 0;
+/* Надежный переливающийся заголовок */
+h1.hero-title-text {
+  font-family: 'Montserrat', sans-serif !important;
+  font-weight: 800 !important;
+  font-size: 3.2rem !important;
+  line-height: 1.1 !important;
+  text-transform: uppercase !important;
+  letter-spacing: -0.02em !important;
+  position: relative !important;
+  display: inline-block !important;
+  padding: 10px 0 !important;
 
-  /* Градиент с нужными цветами */
+  /* Градиент: белый -> голубой -> сиреневый -> зеленый -> белый */
   background-image: linear-gradient(90deg, 
-    #ffffff 0%,   /* белый */
-    #38bdf8 25%,  /* голубоватый */
-    #c084fc 50%,  /* сиреневый */
-    #4ade80 75%,  /* зеленоватый */
-    #ffffff 100%  /* белый */
-  );
-  background-size: 300% 100%;
+    #ffffff 0%,   
+    #38bdf8 25%,  
+    #c084fc 50%,  
+    #4ade80 75%,  
+    #ffffff 100%  
+  ) !important;
+  background-size: 300% 100% !important;
   
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent; /* Обязательно для правильной заливки */
-  background-clip: text;
-  color: transparent;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+  color: transparent !important;
 
-  /* Плавное перетекание цветов */
-  animation: text-color-flow 8s infinite linear;
-  filter: drop-shadow(0 0 12px rgba(168, 85, 247, 0.4));
-  z-index: 2;
+  /* Плавное движение цветов */
+  animation: text-color-flow 8s infinite linear !important;
+  filter: drop-shadow(0 0 12px rgba(168, 85, 247, 0.4)) !important;
+  z-index: 2 !important;
 }
 
 @keyframes text-color-flow {
