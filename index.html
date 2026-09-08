@@ -725,7 +725,7 @@ header {
   100% { transform: scale(1.4); opacity: 1; }
 }
 
-/* Кибернетический заголовок с тонким, медленным перетеканием цвета */
+/* Кибернетический заголовок с плавным переходом в сиреневые оттенки */
 .hero-title-text {
   font-family: 'Montserrat', sans-serif;
   font-weight: 800;
@@ -737,39 +737,35 @@ header {
   display: inline-block;
   padding: 10px 0;
 
-  /* Статический металлический градиент */
-  background-image: linear-gradient(160deg,
-    #ffffff 0%,
-    #00f3ff 30%,
-    #a855f7 60%,
-    #ec4899 100%
+  background-image: linear-gradient(160deg, 
+    #ffffff 0%, 
+    #00f3ff 25%,  
+    #a855f7 55%,  
+    #ec4899 100%  
   );
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 
-  /* Анимация, объединяющая размер пульсации и медленный сдвиг оттенка */
-  animation: text-pulse-and-hue 10s infinite alternate ease-in-out;
+  animation: text-to-lilac 8s infinite alternate ease-in-out;
   z-index: 2;
 }
 
-@keyframes text-pulse-and-hue {
+@keyframes text-to-lilac {
   0% {
     filter: drop-shadow(0 0 8px rgba(0, 243, 255, 0.3)) hue-rotate(0deg);
   }
   100% {
-    filter: drop-shadow(0 0 20px rgba(168, 85, 247, 0.6)) hue-rotate(15deg); /* Очень легкий сдвиг оттенка на 15 градусов */
+    filter: drop-shadow(0 0 20px rgba(168, 85, 247, 0.7)) hue-rotate(35deg);
   }
 }
 
-/* Акцентная часть текста (тоже сдвигает цвет для гармонии) */
 .hero-title-text span.highlight {
   background-image: linear-gradient(90deg, #00f3ff, #00ffaa);
   -webkit-background-clip: text;
   background-clip: text;
-  filter: drop-shadow(0 0 10px rgba(0, 255, 170, 0.5));
+  filter: drop-shadow(0 0 10px rgba(0, 255, 170, 0.4));
   font-weight: 900;
-  /* Добавляем более мягкую пульсацию самой подсветки */
   animation: highlight-pulse 5s infinite alternate ease-in-out;
 }
 
