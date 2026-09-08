@@ -725,9 +725,80 @@ header {
   100% { transform: scale(1.4); opacity: 1; }
 }
 
+/* Улучшенный стиль заголовка "Нейронный перелив" */
 .hero-title-text {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 800;
+  font-size: 3.2rem;
+  line-height: 1.1;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
   position: relative;
+  display: inline-block;
+  padding: 10px 0;
+
+  background-image: linear-gradient(160deg, 
+    #ffffff 0%, 
+    #00f3ff 30%,  
+    #a855f7 60%,  
+    #ec4899 100%  
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 0 8px rgba(168, 85, 247, 0.4));
   z-index: 2;
+}
+
+.hero-title-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+
+  background-image: linear-gradient(90deg,
+    transparent 0%,
+    transparent 40%,
+    rgba(255, 255, 255, 0.8) 50%, 
+    transparent 60%,
+    transparent 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  
+  animation: title-shimmer 4s infinite linear;
+  background-size: 200% 100%;
+  background-position: -100% 0;
+}
+
+@keyframes title-shimmer {
+  0% { background-position: -100% 0; }
+  100% { background-position: 100% 0; }
+}
+
+.hero-title-text span.highlight {
+  background-image: linear-gradient(90deg, #00f3ff, #00ffaa);
+  -webkit-background-clip: text;
+  background-clip: text;
+  filter: drop-shadow(0 0 10px #00ffaa);
+  font-weight: 900;
+  position: relative;
+}
+
+.hero-title-text span.highlight::before {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: #00ffaa;
+    filter: blur(4px);
+    animation: node-pulse 12s infinite alternate;
 }
 </style>
   </style>
@@ -814,7 +885,7 @@ header {
     </circle>
   </svg>
 
-  <h1 class="hero-title-text">Создавайте веб-сайты <span>нового поколения</span> с нейросетями</h1>
+ <h1 class="hero-title-text" data-text="Создавайте веб-сайты нового поколения с нейросетями">Создавайте веб-сайты <span class="highlight">нового поколения</span> с нейросетями</h1>
 </div>
       <p>Современные руководства по фронтенду, бесплатные онлайн-калькуляторы и интерактивный редактор UI-компонентов.</p>
       <a href="#articles" class="btn-gradient">Изучить материалы ↓</a>
