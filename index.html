@@ -677,68 +677,58 @@ header {
   text-shadow: 0 0 12px rgba(168, 85, 247, 0.8), 0 0 20px rgba(99, 102, 241, 0.6);
   transform: translateY(-1px);
 }
-  <div class="hero-waves-wrapper">
-  <!-- Паутина нейронов и бегущие импульсы -->
-  <svg class="hero-neurons-svg" viewBox="0 0 1000 200" preserveAspectRatio="none">
-    <defs>
-      <!-- Свечение импульсов -->
-      <filter id="cyan-glow" x="-50%" y="-50%" width="200%" height="200%">
-        <feGaussianBlur stdDeviation="4" result="blur" />
-        <feMerge>
-          <feMergeNode in="blur" />
-          <feMergeNode in="SourceGraphic" />
-        </feMerge>
-      </filter>
-      
-      <!-- Градиент линий -->
-      <linearGradient id="net-grad" x1="0%" y1="0%" x2="100%" y2="0%">
-        <stop offset="0%" stop-color="#00f3ff" stop-opacity="0.3" />
-        <stop offset="50%" stop-color="#00ffaa" stop-opacity="0.7" />
-        <stop offset="100%" stop-color="#0088ff" stop-opacity="0.3" />
-      </linearGradient>
-    </defs>
+ /* Стили для паутины нейронов */
+.hero-waves-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
 
-    <!-- Основные пути для движения импульсов -->
-    <path id="path1" d="M 50,100 L 200,40 L 450,150 L 700,30 L 950,110" fill="none" class="net-line-main" />
-    <path id="path2" d="M 100,160 L 300,60 L 550,140 L 800,40 L 900,150" fill="none" class="net-line-main" />
-    <path id="path3" d="M 150,30 L 380,160 L 620,30 L 850,160" fill="none" stroke="url(#net-grad)" stroke-width="1.5" />
+.hero-neurons-svg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 115%;
+  height: 220px;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.9;
+}
 
-    <!-- Перекрестные связи (паутина) -->
-    <line x1="200" y1="40" x2="300" y2="60" class="net-line" />
-    <line x1="300" y1="60" x2="380" y2="160" class="net-line" />
-    <line x1="450" y1="150" x2="550" y2="140" class="net-line" />
-    <line x1="550" y1="140" x2="620" y2="30" class="net-line" />
-    <line x1="700" y1="30" x2="800" y2="40" class="net-line" />
-    <line x1="800" y1="40" x2="850" y2="160" class="net-line" />
+.net-line {
+  stroke: rgba(0, 243, 255, 0.25);
+  stroke-width: 1.5;
+  stroke-dasharray: 4 2;
+}
 
-    <!-- Узлы нейронов (точки соединения) -->
-    <circle cx="200" cy="40" r="4" class="neuron-node" />
-    <circle cx="300" cy="60" r="5" class="neuron-node-green" />
-    <circle cx="450" cy="150" r="4" class="neuron-node" />
-    <circle cx="550" cy="140" r="6" class="neuron-node-green" />
-    <circle cx="700" cy="30" r="4" class="neuron-node" />
-    <circle cx="800" cy="40" r="5" class="neuron-node-green" />
-    <circle cx="380" cy="160" r="4" class="neuron-node" />
-    <circle cx="620" cy="30" r="5" class="neuron-node" />
+.net-line-main {
+  stroke: rgba(0, 255, 170, 0.4);
+  stroke-width: 2;
+}
 
-    <!-- Бегущие импульсы нейронов по цепочке -->
-    <circle r="5" fill="#00f3ff" filter="url(#cyan-glow)">
-      <animateMotion path="M 50,100 L 200,40 L 450,150 L 700,30 L 950,110" dur="4s" repeatCount="indefinite" />
-    </circle>
-    <circle r="4" fill="#00ffaa" filter="url(#cyan-glow)">
-      <animateMotion path="M 950,110 L 700,30 L 450,150 L 200,40 L 50,100" dur="3.5s" repeatCount="indefinite" />
-    </circle>
-    <circle r="5" fill="#00ffaa" filter="url(#cyan-glow)">
-      <animateMotion path="M 100,160 L 300,60 L 550,140 L 800,40 L 900,150" dur="4.5s" repeatCount="indefinite" begin="1s" />
-    </circle>
-    <circle r="4" fill="#00f3ff" filter="url(#cyan-glow)">
-      <animateMotion path="M 150,30 L 380,160 L 620,30 L 850,160" dur="3s" repeatCount="indefinite" begin="0.5s" />
-    </circle>
-  </svg>
+.neuron-node {
+  fill: #00f3ff;
+  filter: drop-shadow(0 0 6px #00f3ff);
+  animation: node-pulse 2s infinite alternate ease-in-out;
+}
 
-  <!-- Заголовок -->
-  <h1 class="hero-title-text">Создавайте веб-сайты <span>нового поколения</span> с нейросетями</h1>
-</div>
+.neuron-node-green {
+  fill: #00ffaa;
+  filter: drop-shadow(0 0 6px #00ffaa);
+  animation: node-pulse 2.5s infinite alternate ease-in-out 0.5s;
+}
+
+@keyframes node-pulse {
+  0% { transform: scale(0.8); opacity: 0.5; }
+  100% { transform: scale(1.4); opacity: 1; }
+}
+
+.hero-title-text {
+  position: relative;
+  z-index: 2;
+}
+</style>
   </style>
 </head>
 <body>
@@ -768,32 +758,58 @@ header {
         <span class="dot"></span> Блог обновлен • PWA, SEO & Vercel Analytics
       </div>
       <div class="hero-waves-wrapper">
-  <!-- SVG волны -->
-  <svg class="hero-waves-svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+  <!-- Паутина нейронов и бегущие импульсы -->
+  <svg class="hero-neurons-svg" viewBox="0 0 1000 200" preserveAspectRatio="none">
     <defs>
-      <linearGradient id="wave-grad-1" x1="0%" y1="0%" x2="100%" y2="0%">
-        <stop offset="0%" stop-color="#6366f1" />
-        <stop offset="50%" stop-color="#a855f7" />
-        <stop offset="100%" stop-color="#ec4899" />
-      </linearGradient>
-      <linearGradient id="wave-grad-2" x1="0%" y1="0%" x2="100%" y2="0%">
-        <stop offset="0%" stop-color="#ec4899" />
-        <stop offset="50%" stop-color="#3b82f6" />
-        <stop offset="100%" stop-color="#a855f7" />
-      </linearGradient>
-      <linearGradient id="wave-grad-3" x1="0%" y1="0%" x2="100%" y2="0%">
-        <stop offset="0%" stop-color="#a855f7" />
-        <stop offset="50%" stop-color="#ec4899" />
-        <stop offset="100%" stop-color="#6366f1" />
+      <filter id="cyan-glow" x="-50%" y="-50%" width="200%" height="200%">
+        <feGaussianBlur stdDeviation="4" result="blur" />
+        <feMerge>
+          <feMergeNode in="blur" />
+          <feMergeNode in="SourceGraphic" />
+        </feMerge>
+      </filter>
+      
+      <linearGradient id="net-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="#00f3ff" stop-opacity="0.3" />
+        <stop offset="50%" stop-color="#00ffaa" stop-opacity="0.7" />
+        <stop offset="100%" stop-color="#0088ff" stop-opacity="0.3" />
       </linearGradient>
     </defs>
-    
-    <path class="wave-line wave-line-1" d="M0,60 C150,110 350,-10 500,60 C650,130 900,0 1200,60" />
-    <path class="wave-line wave-line-2" d="M0,50 C200,-10 400,110 600,50 C800,-10 1000,100 1200,50" />
-    <path class="wave-line wave-line-3" d="M0,70 C250,100 450,10 700,70 C950,120 1050,-10 1200,70" />
+
+    <path id="path1" d="M 50,100 L 200,40 L 450,150 L 700,30 L 950,110" fill="none" class="net-line-main" />
+    <path id="path2" d="M 100,160 L 300,60 L 550,140 L 800,40 L 900,150" fill="none" class="net-line-main" />
+    <path id="path3" d="M 150,30 L 380,160 L 620,30 L 850,160" fill="none" stroke="url(#net-grad)" stroke-width="1.5" />
+
+    <line x1="200" y1="40" x2="300" y2="60" class="net-line" />
+    <line x1="300" y1="60" x2="380" y2="160" class="net-line" />
+    <line x1="450" y1="150" x2="550" y2="140" class="net-line" />
+    <line x1="550" y1="140" x2="620" y2="30" class="net-line" />
+    <line x1="700" y1="30" x2="800" y2="40" class="net-line" />
+    <line x1="800" y1="40" x2="850" y2="160" class="net-line" />
+
+    <circle cx="200" cy="40" r="4" class="neuron-node" />
+    <circle cx="300" cy="60" r="5" class="neuron-node-green" />
+    <circle cx="450" cy="150" r="4" class="neuron-node" />
+    <circle cx="550" cy="140" r="6" class="neuron-node-green" />
+    <circle cx="700" cy="30" r="4" class="neuron-node" />
+    <circle cx="800" cy="40" r="5" class="neuron-node-green" />
+    <circle cx="380" cy="160" r="4" class="neuron-node" />
+    <circle cx="620" cy="30" r="5" class="neuron-node" />
+
+    <circle r="5" fill="#00f3ff" filter="url(#cyan-glow)">
+      <animateMotion path="M 50,100 L 200,40 L 450,150 L 700,30 L 950,110" dur="4s" repeatCount="indefinite" />
+    </circle>
+    <circle r="4" fill="#00ffaa" filter="url(#cyan-glow)">
+      <animateMotion path="M 950,110 L 700,30 L 450,150 L 200,40 L 50,100" dur="3.5s" repeatCount="indefinite" />
+    </circle>
+    <circle r="5" fill="#00ffaa" filter="url(#cyan-glow)">
+      <animateMotion path="M 100,160 L 300,60 L 550,140 L 800,40 L 900,150" dur="4.5s" repeatCount="indefinite" begin="1s" />
+    </circle>
+    <circle r="4" fill="#00f3ff" filter="url(#cyan-glow)">
+      <animateMotion path="M 150,30 L 380,160 L 620,30 L 850,160" dur="3s" repeatCount="indefinite" begin="0.5s" />
+    </circle>
   </svg>
 
-  <!-- Заголовок -->
   <h1 class="hero-title-text">Создавайте веб-сайты <span>нового поколения</span> с нейросетями</h1>
 </div>
       <p>Современные руководства по фронтенду, бесплатные онлайн-калькуляторы и интерактивный редактор UI-компонентов.</p>
