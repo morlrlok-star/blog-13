@@ -497,6 +497,40 @@
   transform-style: preserve-3d;
   will-change: transform;
 }
+    /* Кнопка скопировать код */
+.modal-body pre, pre {
+  position: relative; /* Позиционирование кнопки внутри блока */
+}
+
+.copy-code-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--card-border);
+  color: var(--text-muted);
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(6px);
+  user-select: none;
+  z-index: 5;
+}
+
+.copy-code-btn:hover {
+  background: rgba(255, 255, 255, 0.18);
+  color: var(--text-main);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.copy-code-btn.copied {
+  background: rgba(34, 197, 94, 0.2);
+  color: #4ade80;
+  border-color: rgba(34, 197, 94, 0.4);
+}
   </style>
 </head>
 <body>
@@ -1027,6 +1061,50 @@
       card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
     });
   });
+</script>
+  <script>
+  // Логика кнопки «Скопировать код»
+  function attachCopyButtons() {
+    document.querySelectorAll('.modal-body pre, pre').forEach(pre => {
+      if (!pre.querySelector('.copy-code-btn')) {
+        const btn = document.createElement('button');
+        btn.className = 'copy-code-btn';
+        btn.textContent = 'Копировать';
+        btn.type = 'button';
+        pre.appendChild(btn);
+      }
+    });
+  }
+
+  // Обработка клика по кнопке копирования
+  document.addEventListener('click', (e) => {
+    if (e.target && e.target.classList.contains('copy-code-btn')) {
+      const btn = e.target;
+      const pre = btn.closest('pre');
+      if (!pre) return;
+
+      // Получаем чистый текст кода (без текста самой кнопки)
+      const codeNodes = Array.from(pre.childNodes).filter(node => node !== btn);
+      const codeText = codeNodes.map(node => node.textContent).join('');
+
+      navigator.clipboard.writeText(codeText.trim()).then(() => {
+        btn.textContent = '✓ Скопировано!';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.textContent = 'Копировать';
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    }
+  });
+
+  // Следим за появлением статей в модальном окне
+  const modalBody = document.getElementById('modalBody');
+  if (modalBody) {
+    const observer = new MutationObserver(attachCopyButtons);
+    observer.observe(modalBody, { childList: true, subtree: true });
+  }
+  attachCopyButtons();
 </script>
 </body>
 </html>
