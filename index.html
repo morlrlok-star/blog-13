@@ -725,7 +725,7 @@ header {
   100% { transform: scale(1.4); opacity: 1; }
 }
 
-/* Кибернетический заголовок с плавным переходом в сиреневые оттенки */
+/* Единый переливающийся заголовок */
 .hero-title-text {
   font-family: 'Montserrat', sans-serif;
   font-weight: 800;
@@ -737,41 +737,32 @@ header {
   display: inline-block;
   padding: 10px 0;
 
-  background-image: linear-gradient(160deg, 
-    #ffffff 0%, 
-    #00f3ff 25%,  
-    #a855f7 55%,  
-    #ec4899 100%  
+  /* Градиент, включающий все нужные цвета по порядку */
+  background-image: linear-gradient(90deg, 
+    #ffffff 0%,   /* белый */
+    #38bdf8 25%,  /* голубоватый */
+    #c084fc 50%,  /* сиреневый */
+    #4ade80 75%,  /* зеленоватый */
+    #ffffff 100%  /* снова белый для бесконечного цикла */
   );
+  background-size: 250% 100%;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 
-  animation: text-to-lilac 8s infinite alternate ease-in-out;
+  /* Плавное перетекание цветов по всей длине текста */
+  animation: text-color-flow 10s infinite linear;
+  filter: drop-shadow(0 0 12px rgba(168, 85, 247, 0.3));
   z-index: 2;
 }
 
-@keyframes text-to-lilac {
+@keyframes text-color-flow {
   0% {
-    filter: drop-shadow(0 0 8px rgba(0, 243, 255, 0.3)) hue-rotate(0deg);
+    background-position: 0% 50%;
   }
   100% {
-    filter: drop-shadow(0 0 20px rgba(168, 85, 247, 0.7)) hue-rotate(35deg);
+    background-position: 100% 50%;
   }
-}
-
-.hero-title-text span.highlight {
-  background-image: linear-gradient(90deg, #00f3ff, #00ffaa);
-  -webkit-background-clip: text;
-  background-clip: text;
-  filter: drop-shadow(0 0 10px rgba(0, 255, 170, 0.4));
-  font-weight: 900;
-  animation: highlight-pulse 5s infinite alternate ease-in-out;
-}
-
-@keyframes highlight-pulse {
-    0% { filter: drop-shadow(0 0 8px rgba(0, 255, 170, 0.3)); }
-    100% { filter: drop-shadow(0 0 16px rgba(0, 255, 170, 0.7)); }
 }
 </style>
   </style>
@@ -858,7 +849,7 @@ header {
     </circle>
   </svg>
 
-<h1 class="hero-title-text">Программирование и <span class="highlight">работа с нейросетями</span></h1>/span> с нейросетями</h1>
+<h1 class="hero-title-text">Программирование и работа с нейросетями</h1>
 </div>
       <p>Современные руководства по фронтенду, бесплатные онлайн-калькуляторы и интерактивный редактор UI-компонентов.</p>
       <a href="#articles" class="btn-gradient">Изучить материалы ↓</a>
