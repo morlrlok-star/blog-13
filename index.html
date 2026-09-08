@@ -595,6 +595,40 @@
   transition: width 0.1s ease-out;
   pointer-events: none;
 }
+    /* Кастомный неоновый скроллбар */
+/* Стилизация всей полосы прокрутки */
+::-webkit-scrollbar {
+  width: 8px; /* Ширина скроллбара */
+  background-color: rgba(15, 23, 42, 0.5); /* Полупрозрачный фон дорожки */
+}
+
+/* Стилизация "ползунка" (бегунка) */
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #a855f7 0%, #ec4899 100%); /* Фиолетово-розовый градиент */
+  border-radius: 4px; /* Округление ползунка */
+  border: 1px solid rgba(255, 255, 255, 0.1); /* Тонкая рамка */
+  
+  /* Эффект неонового свечения */
+  box-shadow: 
+    0 0 5px rgba(168, 85, 247, 0.8),
+    0 0 10px rgba(168, 85, 247, 0.4);
+  
+  transition: background 0.2s ease;
+}
+
+/* Эффект при наведении на ползунок */
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #be85f9 0%, #f07ab4 100%); /* Чуть ярче при наведении */
+  box-shadow: 
+    0 0 8px rgba(168, 85, 247, 1),
+    0 0 15px rgba(168, 85, 247, 0.6);
+}
+
+/* Стилизация для Firefox (ограниченная поддержка) */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #a855f7 rgba(15, 23, 42, 0.5);
+}
   </style>
 </head>
 <body>
