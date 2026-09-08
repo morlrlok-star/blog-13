@@ -531,6 +531,57 @@
   color: #4ade80;
   border-color: rgba(34, 197, 94, 0.4);
 }
+    /* Эмодзи-реакции */
+.article-reactions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid var(--card-border);
+}
+
+.reaction-title {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-right: 6px;
+}
+
+.reaction-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--card-border);
+  color: var(--text-main);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.reaction-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  transform: translateY(-2px);
+}
+
+.reaction-btn.active {
+  background: rgba(124, 58, 237, 0.25);
+  border-color: rgba(168, 85, 247, 0.5);
+  box-shadow: 0 0 12px rgba(168, 85, 247, 0.3);
+}
+
+.reaction-count {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.reaction-btn.active .reaction-count {
+  color: #a855f7;
+}
   </style>
 </head>
 <body>
@@ -1105,6 +1156,59 @@
     observer.observe(modalBody, { childList: true, subtree: true });
   }
   attachCopyButtons();
+</script>
+  <script>
+  // Логика эмодзи-реакций
+  function attachReactions() {
+    const modalBody = document.getElementById('modalBody');
+    if (!modalBody || modalBody.querySelector('.article-reactions')) return;
+
+    const reactionsContainer = document.createElement('div');
+    reactionsContainer.className = 'article-reactions';
+    reactionsContainer.innerHTML = `
+      <span class="reaction-title">Оцените статью:</span>
+      <button class="reaction-btn" data-emoji="🔥">🔥 <span class="reaction-count">0</span></button>
+      <button class="reaction-btn" data-emoji="🚀">🚀 <span class="reaction-count">0</span></button>
+      <button class="reaction-btn" data-emoji="💡">💡 <span class="reaction-count">0</span></button>
+    `;
+
+    modalBody.appendChild(reactionsContainer);
+
+    const articleTitle = document.getElementById('modalTitle')?.textContent || 'default';
+    const storageKey = `reactions_${articleTitle}`;
+    let savedData = JSON.parse(localStorage.getItem(storageKey) || '{}');
+
+    reactionsContainer.querySelectorAll('.reaction-btn').forEach(btn => {
+      const emoji = btn.dataset.emoji;
+      const countSpan = btn.querySelector('.reaction-count');
+      
+      // Базовый счетчик
+      let count = savedData[emoji]?.count || Math.floor(Math.random() * 4) + 2;
+      let userClicked = savedData[emoji]?.userClicked || false;
+
+      if (userClicked) {
+        btn.classList.add('active');
+      }
+      countSpan.textContent = count;
+
+      btn.addEventListener('click', () => {
+        userClicked = !userClicked;
+        btn.classList.toggle('active', userClicked);
+        count = userClicked ? count + 1 : count - 1;
+        countSpan.textContent = count;
+
+        savedData[emoji] = { count, userClicked };
+        localStorage.setItem(storageKey, JSON.stringify(savedData));
+      });
+    });
+  }
+
+  // Автоматическое добавление при открытии статьи
+  const modalTarget = document.getElementById('modalBody');
+  if (modalTarget) {
+    const observer = new MutationObserver(attachReactions);
+    observer.observe(modalTarget, { childList: true });
+  }
 </script>
 </body>
 </html>
