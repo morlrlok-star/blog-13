@@ -677,6 +677,67 @@ header {
   text-shadow: 0 0 12px rgba(168, 85, 247, 0.8), 0 0 20px rgba(99, 102, 241, 0.6);
   transform: translateY(-1px);
 }
+    /* Анимированные неоновые волны под заголовком */
+.hero-waves-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.hero-waves-svg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -45%);
+  width: 110%;
+  height: 160px;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.85;
+  filter: drop-shadow(0 0 10px rgba(168, 85, 247, 0.7)) drop-shadow(0 0 20px rgba(99, 102, 241, 0.5));
+}
+
+.wave-line {
+  fill: none;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+}
+
+.wave-line-1 {
+  stroke: url(#wave-grad-1);
+  animation: wave-anim-1 6s ease-in-out infinite alternate;
+}
+
+.wave-line-2 {
+  stroke: url(#wave-grad-2);
+  animation: wave-anim-2 8s ease-in-out infinite alternate;
+}
+
+.wave-line-3 {
+  stroke: url(#wave-grad-3);
+  animation: wave-anim-3 7s ease-in-out infinite alternate;
+}
+
+@keyframes wave-anim-1 {
+  0% { transform: translateY(0px) scaleY(1); }
+  100% { transform: translateY(-12px) scaleY(1.2); }
+}
+
+@keyframes wave-anim-2 {
+  0% { transform: translateY(0px) scaleY(1.1); }
+  100% { transform: translateY(10px) scaleY(0.9); }
+}
+
+@keyframes wave-anim-3 {
+  0% { transform: translateY(-5px) scaleY(0.95); }
+  100% { transform: translateY(8px) scaleY(1.15); }
+}
+
+/* Убеждаемся, что текст заголовка находится поверх волн */
+.hero-title-text {
+  position: relative;
+  z-index: 2;
+}
   </style>
 </head>
 <body>
@@ -705,7 +766,35 @@ header {
       <div class="badge-live">
         <span class="dot"></span> Блог обновлен • PWA, SEO & Vercel Analytics
       </div>
-      <h1>Создавайте веб-сайты <span>нового поколения</span> с нейросетями</h1>
+      <div class="hero-waves-wrapper">
+  <!-- SVG волны -->
+  <svg class="hero-waves-svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+    <defs>
+      <linearGradient id="wave-grad-1" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="#6366f1" />
+        <stop offset="50%" stop-color="#a855f7" />
+        <stop offset="100%" stop-color="#ec4899" />
+      </linearGradient>
+      <linearGradient id="wave-grad-2" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="#ec4899" />
+        <stop offset="50%" stop-color="#3b82f6" />
+        <stop offset="100%" stop-color="#a855f7" />
+      </linearGradient>
+      <linearGradient id="wave-grad-3" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="#a855f7" />
+        <stop offset="50%" stop-color="#ec4899" />
+        <stop offset="100%" stop-color="#6366f1" />
+      </linearGradient>
+    </defs>
+    
+    <path class="wave-line wave-line-1" d="M0,60 C150,110 350,-10 500,60 C650,130 900,0 1200,60" />
+    <path class="wave-line wave-line-2" d="M0,50 C200,-10 400,110 600,50 C800,-10 1000,100 1200,50" />
+    <path class="wave-line wave-line-3" d="M0,70 C250,100 450,10 700,70 C950,120 1050,-10 1200,70" />
+  </svg>
+
+  <!-- Заголовок -->
+  <h1 class="hero-title-text">Создавайте веб-сайты <span>нового поколения</span> с нейросетями</h1>
+</div>
       <p>Современные руководства по фронтенду, бесплатные онлайн-калькуляторы и интерактивный редактор UI-компонентов.</p>
       <a href="#articles" class="btn-gradient">Изучить материалы ↓</a>
     </section>
