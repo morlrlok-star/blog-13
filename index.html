@@ -582,6 +582,19 @@
 .reaction-btn.active .reaction-count {
   color: #a855f7;
 }
+    /* Неоновый прогресс-бар чтения */
+#scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 0%;
+  background: linear-gradient(90deg, #6366f1, #a855f7, #ec4899);
+  box-shadow: 0 0 10px rgba(168, 85, 247, 0.8), 0 0 5px rgba(236, 72, 153, 0.5);
+  z-index: 10000;
+  transition: width 0.1s ease-out;
+  pointer-events: none;
+}
   </style>
 </head>
 <body>
@@ -1210,5 +1223,38 @@
     observer.observe(modalTarget, { childList: true });
   }
 </script>
+  <script>
+  // Логика индикатора прокрутки
+  function updateScrollProgress() {
+    const progressBar = document.getElementById('scroll-progress');
+    if (!progressBar) return;
+
+    const modalBody = document.getElementById('modalBody');
+    const modalOverlay = document.getElementById('modalOverlay');
+
+    // Если открыта статья в модальном окне — считаем прокрутку внутри него
+    if (modalOverlay && modalOverlay.classList.contains('active') && modalBody) {
+      const scrollTop = modalBody.scrollTop;
+      const scrollHeight = modalBody.scrollHeight - modalBody.clientHeight;
+      const progress = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+      progressBar.style.width = `${progress}%`;
+    } else {
+      // Иначе считаем прокрутку главной страницы
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+      progressBar.style.width = `${progress}%`;
+    }
+  }
+
+  window.addEventListener('scroll', updateScrollProgress);
+
+  // Слушаем прокрутку внутри модального окна
+  const modalTargetEl = document.getElementById('modalBody');
+  if (modalTargetEl) {
+    modalTargetEl.addEventListener('scroll', updateScrollProgress);
+  }
+</script>
 </body>
+  <div id="scroll-progress"></div>
 </html>
