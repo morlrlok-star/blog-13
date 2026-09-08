@@ -707,16 +707,17 @@ header {
   stroke-width: 2;
 }
 
+/* Точки-нейроны (замедлено пульсирование) */
 .neuron-node {
   fill: #00f3ff;
   filter: drop-shadow(0 0 6px #00f3ff);
-  animation: node-pulse 2s infinite alternate ease-in-out;
+  animation: node-pulse 12s infinite alternate ease-in-out;
 }
 
 .neuron-node-green {
   fill: #00ffaa;
   filter: drop-shadow(0 0 6px #00ffaa);
-  animation: node-pulse 2.5s infinite alternate ease-in-out 0.5s;
+  animation: node-pulse 15s infinite alternate ease-in-out 3s;
 }
 
 @keyframes node-pulse {
